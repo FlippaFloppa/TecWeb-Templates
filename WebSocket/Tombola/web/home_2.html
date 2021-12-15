@@ -1,0 +1,27 @@
+
+<html>
+    <head>
+        <title>Tombola!</title>
+         <script type="text/javascript" src="scripts/wsocket_2.js"></script>
+        <script type="text/javascript" src="scripts/utils.js"></script>
+
+        <link type="text/css" href="styles/default.css" rel="stylesheet"></link>
+    </head>
+    <body>
+    <form action="admin.jsp" method="post">
+        <br>
+        <h2>Login come amministratore:</h2>
+        <input type="text" id="username" name="username">
+        <input type="text" id="password" name="password">
+        <button id="button" name="button">accedi</button>
+        <br>
+    </form>
+    <h2>Estrai un numero ogni 60 secondi!</h2>
+    <div>
+        <button id="register" name="register" onclick="handleMatch(this.id)">register</button>
+        <button id="quit" name="quit" onclick="handleMatch(this.id)">quit</button>
+        <button id="start" name="start" onclick="handleMatch(this.id)">start</button>
+        <button id="extract" name="extract" onclick="myFunction()">Estrai!</button>
+    </div>
+    </body>
+</html>
