@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Esempio di gestione degli eventi con binding del this dell'handler al this del componente</title>
+    <script src="https://unpkg.com/react@15/dist/react.js"></script>
+    <script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.js"></script>
+
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+
+        const Articolo = (costo, nome) => { return { costo: costo, nome: nome } };
+        var data = '{"data":[{"name":"Pasta","price":"1"},{"name":"Acqua","price":"1"},{"name":"Spazzolino","price":"5"}]}';      
+        var arr = JSON.parse(data);
+        var result= [];
+        var price=0;
+         class Art extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = {res:result};
+            }
+            remove(){
+                var e = document.getElementById("remove").value;
+                delete(result.e);
+                
+            }
+
+            show(){
+            this.state.res=result;
+            }
+
+            render() {
+                return (
+                    <div>
+                        Carrello della spesa: <h3>{this.state.res} </h3>
+                        <button onClick={() => this.show()}>Vai al carrello</button>
+                        <input type="text" id="remove" name="input"></input>
+                        <button onClick={() => this.remove()}>Remove</button>
+                        Prezzo finale: {price}
+                        </div>
+                    
+                    );
+            }
+        }
+
+        class Spesa extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = {scelto: "" };
+            }
+            
+            add() {
+                var p = document.getElementById("input").value;
+                this.setState({ prezzo: eval(p) });
+                this.setState({ scelto: value });
+                var e = document.getElementById("oggetti-select");
+                var value = e.options[e.selectedIndex].value;
+                for (var i = 0; i < arr.data.length; i++) {
+                    if(arr.data[i].name===value)
+                    result+=(arr.data[i].name+ " $"+arr.data[i].price +" - ");
+                    price+= eval(arr.data[i].price);
+                }
+            }
+
+            render() {
+                return (
+
+                    <div>
+                        <label for="select">Seleziona oggetti:</label>
+                        <select name="oggetti" id="oggetti-select">
+                            
+                            <option value="">Please choose an option</option>
+                            <option value="Pasta">Pasta - alimentari - 1</option>
+                            <option value="Acqua">Acqua - alimentari - 1 </option>
+                            <option value="Spazzolino">Spazzolino - pulizia - 5 </option>
+                        </select>
+
+                        <input type="text" id="input" name="input"></input>
+                        <h3>Aggiunto prodotto: {this.state.scelto}, Quantità: {this.state.prezzo}</h3>
+                        <button onClick={() => this.add()}>Aggiungi al carrello</button>
+                        <Art />
+                    </div>
+
+                );
+            }
+        }
+
+        ReactDOM.render(
+            <Spesa />,
+            document.getElementById('root')
+        );
+
+    </script>
+</body>
+
+</html>

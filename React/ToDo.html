@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Esempio di gestione degli eventi con binding del this dell'handler al this del componente</title>
+    <script src="https://unpkg.com/react@15/dist/react.js"></script>
+    <script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.js"></script>
+</head>
+
+<body>
+    <script>
+        function del(elem) {
+            console.log("Elimino " + elem);
+            document.getElementById(elem).remove();
+        }
+    </script>
+    <div id="root"></div>
+    <script type="text/babel">
+
+        class Lavagna extends React.Component {
+            constructor(props) {
+                super(props);
+            }
+            render() {
+                return (
+                    <div>
+
+                    </div>
+                )
+            }
+        }
+
+        class List extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = {
+                    list: ["aaa", "bbb", "ccc"],
+                };
+            }
+            remove() {
+
+            }
+
+            myFunction() {
+                let i = 0;
+                var elemento = document.getElementById("element").value;
+                let list = document.getElementById("myList");
+                this.state.list.push(elemento);
+                this.state.list.forEach((item) => {
+                    let li = document.createElement("li");
+                    li.innerText = item + " > " + i;
+                    li.setAttribute("id", "id" + i);
+                    var index = this.state.list.indexOf(item);
+                    li.onclick = function () {
+                        del(li.id);
+                    }, this.state.list.splice(index, 1);
+                    console.log("Creato :" + li.id);
+                    i = eval(i) + 1;
+                    list.appendChild(li);
+                })
+            }
+
+
+
+
+
+            render() {
+                return (
+
+                    <div>
+                        <h2>To-Do List!</h2>
+                        <input type="text" id="element" name="element"></input>
+                        <button onClick={() => this.myFunction()}>Aggiungi</button>
+                        <h3>
+                            <ul id="myList">
+                            </ul>
+                        </h3>
+                    </div>
+                );
+            }
+        }
+
+        ReactDOM.render(
+            <List />,
+            document.getElementById('root')
+        );
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Esempio di gestione degli eventi con binding del this dell'handler al this del componente</title>
+    <script src="https://unpkg.com/react@15/dist/react.js"></script>
+    <script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.js"></script>
+
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+
+        class Article extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = { value: 0 };
+            }
+            inc(){
+                this.setState({value: eval(this.state.value)+1})
+            }
+            render(){
+                return (
+                    <div>
+                    <h3>Valore: {this.state.value}</h3>
+                    <button Articolo onClick={() => this.inc()}>inc</button>
+                    </div>
+                )
+            }
+        }
+        class App extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = { value: 0 };
+            }
+            myFunction(val) {
+                this.setState({ value: val });
+            }
+
+            render() {
+                return (
+
+                    <div>
+                        <input type="text" id="input" name="input"></input>
+                        <h3>Prezzo: {this.state.value}</h3>
+                        <button Articolo onClick={() => this.myFunction(document.getElementById("input").value)}>Set value</button>
+                        <Article />
+                    </div>
+                );
+            }
+        }
+
+        ReactDOM.render(
+            <App />,
+            document.getElementById('root')
+        );
+
+    </script>
+</body>
+
+</html>

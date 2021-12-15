@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Esempio di gestione degli eventi con binding del this dell'handler al this del componente</title>
+    <script src="https://unpkg.com/react@15/dist/react.js"></script>
+    <script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.js"></script>
+
+</head>
+
+<body>
+
+    <div id="root"></div>
+    <script type="text/babel">
+
+        class Lavagna extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = { value: "" };
+
+            }
+            render() {
+                return (
+                    <div>
+                        <h3>
+                            Lavagna:  <button onClick={this.props.clear}>Cancella tutto</button>
+                            {this.props.result}
+                        </h3>
+                    </div>
+                )
+            }
+        }
+
+        class FormIscrizione extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = { value: "" };
+                this.clear = this.clear.bind(this);
+            }
+
+
+            myFunction() {
+                var email = document.getElementById("email").value;
+                var password = document.getElementById("password").value;
+                var nazione = document.getElementById("nazione").value;
+                if (email === "" || password === "" || nazione === "") {
+                    alert("Inserire valori non nulli!");
+                }
+                if (!email.match("@.")) {
+                    alert("Inserire mail valida!");
+                }
+                else {
+                    let res = "Email: " + email + " Password: " + password + " Nazione: " + nazione;
+                    this.setState({ value: this.state.value += "\n" + res });
+                    console.log(this.state.value);
+
+                }
+            }
+
+            clear() {
+                this.setState({ value: "" });
+                console.log("Cancello lavagna");
+            }
+
+            render() {
+                return (
+
+                    <div>
+
+                        <input type="text" id="email" name="email"></input>
+                        <input type="text" id="password" name="password"></input>
+                        <input type="text" id="nazione" name="nazione"></input>
+                        <button onClick={() => this.myFunction()}>Iscrivimi</button>
+                        <h3>
+                            <Lavagna result={this.state.value} clear={this.clear} />
+                        </h3>
+
+
+
+
+                    </div>
+                );
+            }
+        }
+
+        ReactDOM.render(
+            <FormIscrizione />,
+            document.getElementById('root')
+        );
+
+    </script>
+</body>
+
+</html>

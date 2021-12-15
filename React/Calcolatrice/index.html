@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+
+<html>
+        <head>
+                 <meta charset="UTF-8" />
+                 <title>Calcolatrice scientifica</title>
+                 <link rel="StyleSheet" href="styles/style.css" type="text/css" media="all" />
+				 <script src="./libs/react.js"></script>
+				 <script src="./libs/react_dom.js"></script>
+				 <script src="./libs/babel.js"></script>    
+				 
+				 <script src="./scripts/requestServerCalculation.js"></script> 
+				 <script src="./scripts/utils.js"></script>               
+
+	</head>
+
+        <body>
+		 <!-- Placeholder -->
+		 <div id="root"></div>
+		 
+		 <!-- React components -->
+    		 <script src="./react-components/Display.js" type="text/babel"></script>
+    		 <script src="./react-components/KeyBoard.js" type="text/babel"></script>
+    		 <script src="./react-components/ScientificKeyBoard.js" type="text/babel"></script>
+    		 <script src="./react-components/App.js" type="text/babel"></script>
+    		 
+    		 <script type="text/babel">
+    		 	ReactDOM.render(
+  					<React.StrictMode>
+    					<App/>
+  					</React.StrictMode>,
+  					document.getElementById('root')
+			 	);
+			 </script>
+	</body>
+</html>
