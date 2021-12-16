@@ -26,9 +26,6 @@
         out.print("Sessione: "+sessionattribute);
 
     %>
-    <br>
-    <br>
-    <br>
 
 <div style="float: right; border-width: 2px" >
     <form name="registerForm" method="post" action="Login&reg=true">
