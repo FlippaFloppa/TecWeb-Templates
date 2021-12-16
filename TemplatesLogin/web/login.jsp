@@ -9,13 +9,15 @@
     <title>Title</title>
 </head>
 <body>
-<div>
+<div style="float: left;border-width: 2px">
 
     <form name="loginForm" method="post" action="Login&reg=false">
         Username: <input type="text" name="username"/> <br/>
         Password: <input type="password" name="password"/> <br/>
         <input type="submit" value="Login" />
     </form>
+
+</div >
 
     <% 
         String name=(String)request.getAttribute("res");
@@ -28,6 +30,7 @@
     <br>
     <br>
 
+<div style="float: right; border-width: 2px" >
     <form name="registerForm" method="post" action="Login&reg=true">
         Username: <input type="text" name="username"/> <br/>
         Password: <input type="password" name="password"/> <br/>
