@@ -18,12 +18,20 @@
         <input type="submit" value="Login" />
     </form>
 
-    <% String name=(String)request.getAttribute("res");
+    <% 
+        String name=(String)request.getAttribute("res");
         out.print("Nome: "+name);
         String sessionattribute=(String)request.getSession().getAttribute("something");
         out.print("Sessione: "+sessionattribute);
 
     %>
+
+    <form name="registerForm" method="post" action="Register">
+        Username: <input type="text" name="username"/> <br/>
+        Password: <input type="password" name="password"/> <br/>
+        Group: <input type="group" name="group"/> <br/>
+        <input type="submit" value="Sign in" />
+    </form>
 
 </div>
 </body>
