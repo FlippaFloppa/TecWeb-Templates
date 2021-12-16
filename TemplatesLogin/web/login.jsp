@@ -11,29 +11,25 @@
 <body>
 <div style="float: left;border-width: 2px">
 
-    <form name="loginForm" method="post" action="Login&reg=false">
-        Username: <input type="text" name="username"/> <br/>
-        Password: <input type="password" name="password"/> <br/>
+    <form name="loginForm" method="post" action="Login?req=login">
+        Username: <input type="text" name="username"/>
+        <br>
+        Password: <input type="text" name="password"/>
+        <br>
         <input type="submit" value="Login" />
     </form>
-
-</div >
-
-    <% 
-        String name=(String)request.getAttribute("res");
-        out.print("Nome: "+name);
-        String sessionattribute=(String)request.getSession().getAttribute("something");
-        out.print("Sessione: "+sessionattribute);
-
-    %>
-
-<div style="float: right; border-width: 2px" >
-    <form name="registerForm" method="post" action="Login&reg=true">
-        Username: <input type="text" name="username"/> <br/>
-        Password: <input type="password" name="password"/> <br/>
-        Group: <input type="group" name="group"/> <br/>
-        <input type="submit" value="Sign in" />
+</div>
+<div style="float: right;border-width: 2px">
+    <form name="register" method="post" action="Login?req=registration">
+        Username: <input type="text" name="username"/>
+        <br>
+        Password: <input type="text" name="password"/>
+        <br>
+        Group: <input type="text" name="group"/>
+        <br>
+        <input type="submit" value="Registration" />
     </form>
+
 
 </div>
 </body>
