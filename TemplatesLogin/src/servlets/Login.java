@@ -47,7 +47,7 @@ public class Login extends HttpServlet {
         }
         if (r.equals("registration")) {
             String group = req.getParameter("group");
-            checkGroup = registration(username, password, group, req.getSession());
+            checkGroup = registration(username, password, group);
             if (checkGroup) {
                 getServletContext().getRequestDispatcher("/login.jsp").forward(req, resp);
                 System.out.println("Ricevuta registrazione da Username: " + username + " Password: " + password);
@@ -59,12 +59,12 @@ public class Login extends HttpServlet {
 
     }
 
-    public boolean registration(String username, String password, String group, HttpSession session) {
+    public boolean registration(String username, String password, String group) {
         boolean check = false;
         //controllo che il gruppo sia tra quelli disponibili
         if (group.equals("g0") || group.equals("g1") || group.equals("g2") || group.equals("g0")) {
             d.getUsers().put(username, password);
-            d.getSessions().put(username, Optional.of(session));
+            d.getSessions().put(username, Optional.empty());
             d.getGroups().put(username, group);
             System.out.println("Registrato utente: " + username + ", gruppo: " + group);
             check = true;
@@ -77,7 +77,9 @@ public class Login extends HttpServlet {
         //controllo che nome e password corrispondano
         if (d.getUsers().containsKey(username) && d.getUsers().get(username).equals(password)) {
             //controllo che non ci sia la sessione per quell'utente
-            if (d.getSessions().get(username).isEmpty()) {
+            if(s.isNew()){
+                check=true;
+            }else if (d.getSessions().get(username).isEmpty()) {
                 System.out.println("Loggato utente: " + username);
                 d.getSessions().put(username, Optional.of(s));
                 check = true;
