@@ -25,12 +25,7 @@
 	<!-- Map some URL's to the  servlet -->
 	<servlet-mapping>
 		<servlet-name>Login</servlet-name>
-		<url-pattern>/Login&reg=false</url-pattern>
-	</servlet-mapping>
-
-	<servlet-mapping>
-		<servlet-name>Register</servlet-name>
-		<url-pattern>/Login&reg=true</url-pattern>
+		<url-pattern>/Login</url-pattern>
 	</servlet-mapping>
 	<!-- Login pages -->
 	<!-- pleonastico: tomcat "tenta" in automatico le index.html e index.jsp -->

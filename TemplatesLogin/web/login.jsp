@@ -11,10 +11,9 @@
 <body>
 <div>
 
-    <form name="loginForm" method="post" action="Login">
+    <form name="loginForm" method="post" action="Login&reg=false">
         Username: <input type="text" name="username"/> <br/>
         Password: <input type="password" name="password"/> <br/>
-        Group: <input type="group" name="group"/> <br/>
         <input type="submit" value="Login" />
     </form>
 
@@ -25,8 +24,11 @@
         out.print("Sessione: "+sessionattribute);
 
     %>
+    <br>
+    <br>
+    <br>
 
-    <form name="registerForm" method="post" action="Register">
+    <form name="registerForm" method="post" action="Login&reg=true">
         Username: <input type="text" name="username"/> <br/>
         Password: <input type="password" name="password"/> <br/>
         Group: <input type="group" name="group"/> <br/>
