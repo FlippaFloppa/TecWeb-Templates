@@ -23,24 +23,45 @@ public class Login extends HttpServlet {
         super.init(conf);
         //dati con scope application
         d = (Dati) getServletContext().getAttribute("dati");
-
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
+        for(String g:d.getGroups().keySet()){
+            checkExpiredPasswords(g);
+        }
+
         String username = req.getParameter("username");
         String password = req.getParameter("password");
         String r = req.getParameter("req");
 
         if (r.equals("login")) {
-            if (checkLogin(username, password, req.getSession())) {
-                getServletContext().getRequestDispatcher("/carrello.jsp").forward(req, resp);
-                System.out.println("Ricevuto login da Username: " + username + " Password: " + password);
-            } else {
-                getServletContext().getRequestDispatcher("/errors/loginFailure.jsp?err=login").forward(req, resp);
+
+            if(d.getUsers().containsKey(username)){
+                if(d.getUsers().get(username).isExpired()){
+                    getServletContext().getRequestDispatcher("/errors/loginFailure.jsp?err=expired&user="+username).forward(req, resp);
+                }
+                else if(d.getUsers().get(username).getPassword().compareTo(password)!=0){
+                    d.getUsers().get(username).incWrongPassword();
+                    getServletContext().getRequestDispatcher("/errors/loginFailure.jsp?err=pass").forward(req, resp);
+                }
+                else{
+
+                    if(username.compareTo("admin")==0){
+                        getServletContext().getRequestDispatcher("/admin.jsp").forward(req, resp);
+                        System.out.println("Amministratore loggato!");
+                    }
+                    else{
+                        getServletContext().getRequestDispatcher("/applicazione.jsp").forward(req, resp);
+                        System.out.println("Ricevuto login da Username: " + username + " Password: " + password);
+                    }
+                }
+            }else {
+                getServletContext().getRequestDispatcher("/errors/loginFailure.jsp?err=user").forward(req, resp);
             }
+
         }
         if (r.equals("registration")) {
             String group = req.getParameter("group");
@@ -53,12 +74,18 @@ public class Login extends HttpServlet {
             }
         }
 
+        if(r.equals("reset")){
+            d.getUsers().get(username).setPassword(password);
+            getServletContext().getRequestDispatcher("/login.jsp").forward(req, resp);
+        }
+
     }
 
-    public boolean registration(String username, String password, String group) {
+    private boolean registration(String username, String password, String group) {
         //controllo che il gruppo sia tra quelli disponibili
-        if (d.getGroups().contains(group) && !d.getUsers().containsKey(username)) {
+        if (d.getGroups().containsKey(group) && !d.getUsers().containsKey(username)) {
             d.getUsers().put(username, new Utente(username,password,group));
+            d.getGroups().get(group).add(d.getUsers().get(username));
             d.getSessions().put(d.getUsers().get(username).getUsername(), Optional.empty());
             System.out.println("Registrato utente: " + username + ", gruppo: " + group);
             return true;
@@ -66,22 +93,25 @@ public class Login extends HttpServlet {
         return false;
     }
 
-    public boolean checkLogin(String username, String password, HttpSession s) {
-        //controllo che nome e password corrispondano
-        if (d.getUsers().containsKey(username) && d.getUsers().get(username).getPassword().compareTo(password)==0) {
-            //controllo che non ci sia la sessione per quell'utente
-            if(s.isNew()){
-                return true;
-            }else if (d.getSessions().get(username).isEmpty()) {
-                System.out.println("Loggato utente: " + username);
-                d.getSessions().put(d.getUsers().get(username).getUsername(), Optional.of(s));
-                return true;
+
+    private void checkExpiredPasswords(String group){
+
+        int expCounter=0;
+
+        for(Utente u: d.getGroups().get(group)){
+            u.checkPasswordAge();
+            if(u.isExpired()){
+                u.resetPassword();
+                expCounter++;
             }
         }
-        return false;
+
+        if(expCounter>2)resetAll(group);
     }
 
-    public void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException {
+    private void resetAll(String group){
+        for(Utente u: d.getGroups().get(group)){
+            u.resetPassword();
+        }
     }
 }

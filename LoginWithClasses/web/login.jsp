@@ -10,40 +10,49 @@
     <title>Title</title>
 </head>
 <body>
-<div style="float: left;border-width: 2px">
 
+<table class="formdata" style=";width:100%">
+
+    <tr>
+        <td style="align-content: center">
     <h1>LOGIN</h1>
 
     <form name="loginForm" method="post" action="Login?req=login">
         Username: <input type="text" name="username"/>
-        <br>
+        <br><br>
         Password: <input type="password" name="password"/>
-        <br>
+        <br><br>
         <input type="submit" value="Login" />
     </form>
-</div>
-<div style="float: right;border-width: 2px">
+
+        </td>
+        <td style="align-content: center">
 
     <h1>SIGN IN</h1>
 
     <form name="register" method="post" action="Login?req=registration">
         Username: <input type="text" name="username"/>
-        <br>
+        <br><br>
         Password: <input type="password" name="password"/>.
-        <br>
+        <br><br>
         Group:
         <select name="group">
             <%
-            for(String g:dati.getGroups()){
+            for(String g:dati.getGroups().keySet()){
             %> <option value="<%=g%>"><%=g%></option>
             <%
                 }
             %>
         </select>
-        <br>
+        <br><br>
         <input type="submit" value="Registration" />
     </form>
-</div>
+
+        </td>
+
+    </tr>
+
+</table>
 
 </body>
 </html>
