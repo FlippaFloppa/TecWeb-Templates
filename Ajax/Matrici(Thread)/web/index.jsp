@@ -1,6 +1,6 @@
-<%@ page session="true"%>
-<%@ page import="it.Test"%>
-<%@ page import="java.util.*"%>
+<%@ page session="true" %>
+<%@ page import="it.Test" %>
+<%@ page import="java.util.*" %>
 <script type="text/javascript" src="scripts/matrixCalculator.js"></script>
 <script type="text/javascript" src="scripts/utils.js"></script>
 
@@ -12,17 +12,18 @@
 <body>
 
 <%
-if(request.getSession(false)==null){
-    response.sendRedirect(request.getContextPath()+"/error.jsp");
-}
+    if (request.getSession(false) == null) {
+        response.sendRedirect(request.getContextPath() + "/error.jsp");
+    }
 %>
 
 <div style="float: left;border-width: 2px">
     <h3>Inserisci le matrici:</h3>
-        X:<input id="first" type="text" name="testo" size="2"/>
-        Y:<input id="second" type="text" name="testo" size="2"/>
-    <button id="seq" onclick="matrixCalculator(myGetElementById('single'),'s')">Single Thread</button>
-    <button id="thread" onclick="matrixCalculator(myGetElementById('multi'),'m')">Multi Thread</button>
+    X:<input id="first" type="text" name="testo" size="2" onchange="show()"/>
+    Y:<input id="second" type="text" name="testo" size="2" onchange="show()"/>
+    <p id="pulsanti">
+
+    </p>
     <h3>Risultato matrici:</h3>
     <p id="single">
 

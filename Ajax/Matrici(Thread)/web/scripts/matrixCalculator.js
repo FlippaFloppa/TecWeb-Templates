@@ -1,4 +1,3 @@
-
 //risposta da servlet
 function substituteInnerHTML(ajax, theElement) {
 
@@ -6,18 +5,18 @@ function substituteInnerHTML(ajax, theElement) {
     theElement.class = "content";
 
     // verifica dello stato
-    if ( ajax.readyState === 2 ) {
+    if (ajax.readyState === 2) {
         theElement.innerHTML = "Richiesta inviata...";
     } // if 2
 
-    else if ( ajax.readyState === 3 ) {
+    else if (ajax.readyState === 3) {
         theElement.innerHTML = "Ricezione della risposta...";
     } // else if 3
 
-    else if ( ajax.readyState === 4 ) {
+    else if (ajax.readyState === 4) {
 
         // verifica della risposta da parte del server
-        if ( ajax.status === 200 ) {
+        if (ajax.status === 200) {
             // operazione avvenuta con successo
             // per i campi di testo
             //theElement.value = ajax.responseText;
@@ -36,22 +35,27 @@ function substituteInnerHTML(ajax, theElement) {
 
 function prefetchIframe() {
     alert("Non supportiamo iframe");
-    }
+}
 
-function prefetchAJAX(x, y,theElement, theXhr,type) {
+function show() {
+    var b = myGetElementById('pulsanti');
+    b.innerHTML = '<button id="seq" onClick="matrixCalculatorSingle()">Single Thread</button>'
+    b.innerHTML += '<button id="thread" onclick="matrixCalculatorMulti()">Multi Thread</button>'
+}
+
+function prefetchAJAX(x, y, theElement, theXhr, type) {
     // impostazione della funzione di callback
-    theXhr.onreadystatechange = function() {
+    theXhr.onreadystatechange = function () {
 
         substituteInnerHTML(theXhr, theElement);
     };
 
-    let uri="Test"+"?first="+x+"&second="+y+"&request="+type;
+    let uri = "Test" + "?first=" + x + "&second=" + y + "&request=" + type;
 
     // impostazione richiesta asincrona in GET
     try {
         theXhr.open("get", uri, true);
-    }
-    catch(e) {
+    } catch (e) {
         // Exceptions are raised when trying to access cross-domain URIs
         alert(e);
     }
@@ -64,17 +68,34 @@ function prefetchAJAX(x, y,theElement, theXhr,type) {
 
 }
 
-function matrixCalculator(e,type) {
+function matrixCalculatorSingle() {
+    var e = myGetElementById("single");
+    var type = "s";
+    console.log("Ricevuto elemento :" + e + " Richiesta: " + type);
+    let x = myGetElementById("first").value;
+    let y = myGetElementById("second").value;
 
-    console.log("Ricevuto elemento :"+e+" Richiesta: "+type);
-    let x=myGetElementById("first").value;
-    let y=myGetElementById("second").value;
-
-    console.log("Calcolo matrici"+x+" e "+y);
+    console.log("Calcolo matrici" + x + " e " + y);
 
     // variabili di funzione
     var xhr = myGetXmlHttpRequest();
 
-    if (xhr) prefetchAJAX(x, y, e, xhr,type);
+    if (xhr) prefetchAJAX(x, y, e, xhr, type);
     else prefetchIframe();
-}// prefetch()
+}
+
+function matrixCalculatorMulti() {
+    var e = myGetElementById("multi");
+    var type = "m";
+    console.log("Ricevuto elemento :" + e + " Richiesta: " + type);
+    let x = myGetElementById("first").value;
+    let y = myGetElementById("second").value;
+
+    console.log("Calcolo matrici" + x + " e " + y);
+
+    // variabili di funzione
+    var xhr = myGetXmlHttpRequest();
+
+    if (xhr) prefetchAJAX(x, y, e, xhr, type);
+    else prefetchIframe();
+}
