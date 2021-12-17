@@ -7,7 +7,6 @@ import javax.servlet.http.HttpSession;
 public class Dati {
 
     private Map<String, Utente> users;
-    private Map<String, Optional<HttpSession>> sessions;
     private Map<String,List<Utente>> groups;
 
 public Dati(){
@@ -33,21 +32,10 @@ public Dati(){
     groups.get("g1").add(this.getUsers().get("user3"));
     groups.get("g2").add(this.getUsers().get("user4"));
 
-    //sessioni
-    sessions = new HashMap<>();
-    sessions.put("admin", Optional.empty());
-    sessions.put("user1", Optional.empty());
-    sessions.put("user2", Optional.empty());
-    sessions.put("user3", Optional.empty());
-    sessions.put("user4", Optional.empty());
 }
 
     public Map<String, Utente> getUsers() {
         return users;
-    }
-
-    public Map<String, Optional<HttpSession>> getSessions() {
-        return sessions;
     }
 
     public Map<String,List<Utente>> getGroups() {
