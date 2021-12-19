@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Fatture</title>
+    <script src="https://unpkg.com/react@15/dist/react.js"></script>
+    <script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.js"></script>
+
+</head>
+<script>
+    function hide(){
+        var x = document.getElementById("carrello1");
+                var y = document.getElementById("carrello2");
+                x.style.display="none";
+                y.style.display="none";
+    }
+</script>
+<body onload="hide()">
+    <div id="root"></div>
+    <script type="text/babel">
+
+        class CompilazioneAcquisto extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = { value: 0 ,total: 0, listafatture: [], res: " " };
+            }
+            check(val){
+                var e = document.getElementById("iva1");
+                var selected=e.value;
+                var prezzo=document.getElementById("prezzo1").value;
+            if(selected!==null){
+                console.log("Prezzo : "+prezzo+" Selezionato: "+selected);
+                this.setState({ value: prezzo*(selected/100)+eval(prezzo) });
+                this.setState({ total: eval(this.state.total)+eval(this.state.value) });
+            }
+            }
+            fetchFatture(val){
+                this.setState({ listafatture: this.state.listafatture.concat(val) });
+                this.setState({ res: "Fatture totali acquisto: "+this.state.listafatture });
+                document.getElementById("carrello1").value=this.state.total;
+
+            }
+            render(){
+                return (
+            
+                    <div>
+                    <h3>Inserisci Prezzo Acquisto:</h3>
+                    <p>
+                    <input type="text" id="prezzo1" onfocusout={() => this.check(this.value)}/>
+                    </p>
+                    <h3>Inserisci IVA Acquisto:</h3>
+                    <p>
+                    <select name="iva1" id="iva1">
+                        <option id="opt1" onClick={() => this.check(this.value)}>{this.props.first}</option>
+                        <option id="opt2" onClick={() => this.check(this.value)}>{this.props.second}</option>
+                        </select>
+                    <button onClick={() => this.fetchFatture(this.state.value)}>Salva</button>
+                    </p>
+                    <textarea disabled="yes" name="res" id="res" cols="10" rows="3" value={this.state.listafatture}></textarea>
+                    </div>
+                )
+            }
+        }
+
+        class CompilazioneVendita extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = { value: 0 ,total: 0, listafatture: [], res: " " };
+            }
+            check(val){
+                var e = document.getElementById("iva2");
+                var selected=e.value;
+                var prezzo=document.getElementById("prezzo2").value;
+            if(selected!==null){
+                console.log("Prezzo : "+prezzo+" Selezionato: "+selected);
+                this.setState({ value: prezzo*(selected/100)+eval(prezzo) });
+                this.setState({ total: eval(this.state.total)+eval(this.state.value) });
+            }
+            }
+            
+            fetchFatture(val){
+                this.setState({ listafatture: this.state.listafatture.concat(val) });
+                this.setState({ res: "Fatture totali vendita: "+this.state.listafatture });
+                document.getElementById("carrello2").value=this.state.total;
+
+            }
+
+            render(){
+                return (
+            
+                    <div>
+                    <h3>Inserisci Prezzo Vendita:</h3>
+                    <p>
+                    <input type="text" id="prezzo2" onfocusout={() => this.check(this.value)}/>
+                    </p>
+                    <h3>Inserisci IVA Vendita:</h3>
+                    <p>
+                    <select name="iva2" id="iva2">
+                        <option id="opt3" onClick={() => this.check(this.value)}>{this.props.first}</option>
+                        <option id="opt4" onClick={() => this.check(this.value)}>{this.props.second}</option>
+                        </select>
+                    <button onClick={() => this.fetchFatture(this.state.value)}>Salva</button>
+                    </p>
+                    <textarea disabled="yes" name="res" id="res" cols="10" rows="3" value={this.state.listafatture}></textarea>
+                    </div>
+                )
+            }
+        }
+        class Visualizzazione extends React.Component {
+            constructor(props) {
+                super(props);
+            }
+            calcola(){
+                var x = document.getElementById("carrello1");
+                var y = document.getElementById("carrello2");
+                x.style.display="block";
+                y.style.display="block";
+
+            }
+            render(){
+                return (
+                    <div>
+                        <h2>Risultati:</h2>
+                        {this.props.result}
+                        <button onClick={() => this.calcola()}>Calcola</button>
+                        </div>
+                )
+            }
+        }
+        class App extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = { value: 0 };
+            }
+
+            render() {
+                return (
+
+                    <div>
+                        <CompilazioneAcquisto  first={"10"} second={"22"}/>
+                        <CompilazioneVendita first={"4"} second={"6"} />
+                        <Visualizzazione/>
+                        <br/>
+                        <h3>Fatture d'acquisto: <input type="text" id="carrello1"/></h3>
+                        <br/>
+                        <h3>Fatture di vendita: <input type="text" id="carrello2"/></h3>
+                    </div>
+                );
+            }
+        }
+
+        ReactDOM.render(
+            <App />,
+            document.getElementById('root')
+        );
+
+    </script>
+</body>
+
+</html> 
