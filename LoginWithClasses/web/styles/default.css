@@ -1,0 +1,115 @@
+body {
+ font-family: Verdana, Helvetica, sans-serif;
+ font-size: 9pt;
+ background: #FFF;
+ color: #000;
+}
+
+h1 {
+ font-size: 12pt;
+ border-bottom: 1px solid silver;
+ color: #009;
+ text-align: center;
+}
+
+#menu {
+	color: blue;
+	margin: 2px;
+}
+
+#tabs li {
+	background-color: white;
+	margin-right: 2px;
+	padding: 5px;
+	list-style-type: none;
+	float: left;
+	border-top: grey solid 2px;
+	border-right: grey solid 2px;
+	border-left: grey solid 2px;
+	border-bottom: none;
+	height: 18px;
+}
+
+#tabs li a {
+	text-decoration: none;
+}	
+
+.clear {
+	clear: both;
+}
+
+
+#main {
+	border: 2px solid grey;
+	margin-left: 2px;
+	margin-right: 2px;
+	padding: 5px;
+	text-align: left;
+}
+
+#err {
+	border: 2px solid grey;
+	margin-left: 2px;
+	margin-right: 2px;
+	padding: 5px;
+	text-align: left;
+	background-color: red;
+	color: white;
+}
+
+#footer {
+	position: absolute;
+	width: 97%;
+	border: 2px solid grey;
+	margin: 2px;
+	padding: 5px;
+	bottom: 5px;
+	text-align: center;
+}
+
+/*
+look and feel da foglio di calcolo
+*/			
+table.formdata {
+	border: 1px solid #5F6F7E;
+	border-collapse: collapse;
+	margin: 10px;
+	width: 90%;
+}
+table.formdata th {
+	border: 1px solid #5F6F7E;
+	background-color: #E2E2E2;
+	color: #000000;
+	text-align: left;
+	font-weight: bold;
+	padding: 2px 4px 2px 4px;
+	margin: 0;
+	font-style: italic;
+	font-size: smaller;
+}
+table.formdata td {
+	margin: 0;
+	padding: 0;
+	border: 1px solid #E2E2E2;
+	height: 100%;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+table.formdata input, textarea {
+	color: black;
+	width: 100%;
+	height: 100%;
+	padding: 2px 4px 2px 4px;
+	margin: 0;
+	border: 2px solid #ffffff;
+}
+.formdata input:focus, textarea:focus {
+	border: 2px solid #000000;
+}
+.formdata input:focus, textarea:focus {
+	border: 2px solid #000000;
+}
+
+a img {
+	border: 0px solid;
+}
