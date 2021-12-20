@@ -1,0 +1,88 @@
+HTML
+<form action="http://localhost:8080/TW_Esame_200115_1_Password/login" method="post">
+        username:
+        <input type="text" id="username" name="username"><br>
+        password:
+        <input type="text" id="password" name="password"><br>
+        group:
+        <input type="text" id="group" name="group"><br>
+        <button type="submit">Login</button>
+</form>
+
+
+menù a tendina
+<form action="http://site.com/bin/adduser" method="post">
+<select name="provincia" >
+<option value="BO" selected="selected">Bologna</option>
+<option value="MO">Modena</option>
+<option value="RE">Reggio Emilia</option>
+<option value="PR">Parma</option>
+<option value="PC">Piacenza</option>
+</select>
+</form> 
+
+
+
+
+SERVLET
+import com.google.gson.Gson;
+
+extends HttpServlet
+
+@Override
+    public void init(ServletConfig conf) throws ServletException {
+        super.init(conf);
+
+    }
+
+protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException, NumberFormatException {
+
+String matrix=req.getParameter("matrix");
+
+getServletContext().getRequestDispatcher("/404.html").forward(req, resp);
+
+resp.sendRedirect(req.getContextPath()+"/index.jsp");
+
+ServletContext application = getServletContext();
+
+application.setAttribute("numRichieste", num);
+
+
+//max time session
+HttpSession currentSession=req.getSession(); //creo nuova sessione
+            currentSession.setAttribute("user", paramUsername);
+            currentSession.setMaxInactiveInterval(60*60);// validita sessione 1h
+
+
+
+JSP
+<%@ page session="true"%>
+<%@ page import="java.util.*"%>
+<%@ page import="javax.servlet.*"%>
+
+String u=request.getParameter("username");
+
+List<HttpSession> l=(List<HttpSession>)(getServletConfig().getServletContext().getAttribute("sessioni"));
+
+
+
+JAVASCRIPT
+
+//testo da una select (menù a tendina)
+var card = myGetElementById("alb");
+    if (card.selectedIndex == 0) {
+        alert('select one answer');
+    }
+    else {
+        var selectedText = card.options[card.selectedIndex].text;
+    }
+
+
+//refersh dopo x secondi
+<body onload="setTimeout(tictac, 15000)">
+
+function tictac(){
+    alert('Sessione terminata!');
+    window.location.replace("http://localhost:8080/08_TecWeb/");
+}
