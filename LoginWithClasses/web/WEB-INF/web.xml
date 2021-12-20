@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+    version="2.4">
+
+    <display-name>TemplateLogin</display-name>
+    <description>
+      This is an empty project that can be used as a template for your own ones
+    </description>
+
+	<!-- Context attributes to be used throughout the application -->
+	<context-param>
+		<param-name>nome_parametro</param-name>
+		<param-value>valore_parametro</param-value>
+	</context-param>
+	
+    <!-- Define servlets that are included in the application -->
+	<!-- Define servlets that are included in the application -->
+	<servlet>
+		<servlet-name>Login</servlet-name>
+		<servlet-class>servlets.Login</servlet-class>
+	</servlet>
+	<!-- Map some URL's to the  servlet -->
+	<servlet-mapping>
+		<servlet-name>Login</servlet-name>
+		<url-pattern>/Login</url-pattern>
+	</servlet-mapping>
+	<!-- Login pages -->
+		
+	<!-- Handle exceptions and errors -->
+	
+	<error-page>
+		<error-code>404</error-code>
+		<location>/errors/notfound.html</location>
+	</error-page>
+
+	<error-page>
+		<exception-type>javax.servlet.ServletException</exception-type>
+		<location>/errors/failure.jsp</location>
+	</error-page>
+
+</web-app>
