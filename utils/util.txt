@@ -77,6 +77,19 @@ var card = myGetElementById("alb");
     else {
         var selectedText = card.options[card.selectedIndex].text;
     }
+    
+    
+//testo da una checkbox (tipo lista della spesa)
+var cboxes = document.getElementsByName('lettere');
+var len = cboxes.length;
+var lettere = "";
+for (var i = 0; i < len; i++) {
+//alert(i + (cboxes[i].checked ? ' checked ' : ' unchecked ') + cboxes[i].value);
+if (cboxes[i].checked) {
+         lettere += (cboxes[i].value + " ");
+        }
+   }
+
 
 
 //refersh dopo x secondi
@@ -86,3 +99,23 @@ function tictac(){
     alert('Sessione terminata!');
     window.location.replace("http://localhost:8080/08_TecWeb/");
 }
+
+//redirect simulando un click
+window.location.href = "http://localhost:8080/08_TecWeb/";
+
+
+
+WEB.XML
+
+//Settare parametro di init e chiamarlo nella servlet
+<servlet>
+     <display-name>HelloWorldServlet</display-name>
+     <servlet-name>HelloWorldServlet</servlet-name>
+     <init-param>
+         <param-name>Greetings</param-name>
+         <param-value>Hello</param-value>
+     </init-param>
+</servlet>
+
+//Nella servlet si chiama
+pageContext.getServletContext().getInitParameter("k")
