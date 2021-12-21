@@ -118,4 +118,4 @@ WEB.XML
 </servlet>
 
 //Nella servlet si chiama
-out.println(getInitParameter("Greetings"));
+pageContext.getServletContext().getInitParameter("k")
