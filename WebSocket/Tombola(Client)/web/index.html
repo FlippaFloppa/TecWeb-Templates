@@ -1,0 +1,19 @@
+<html>
+<head>
+    <script type="text/javascript" src="scripts/utils.js"></script>
+    <script type="text/javascript" src="scripts/websocket.js"></script>
+    <link type="text/css" href="styles/default.css" rel="stylesheet"></link>
+    <title>Tombola!</title>
+
+</head>
+<body>
+<h2>Estrai 15 numeri!</h2>
+<input type="text" id="numbers" name="numbers">
+<div>
+    <button id="register" name="register" onclick="handleMatch(this.id)">register</button>
+    <button id="quit" name="quit" onclick="handleMatch(this.id)">quit</button>
+    <button id="start" name="start" onclick="handleMatch(this.id)">start</button>
+    <button id="extract" name="extract" onclick="myFunction()">Estrai!</button>
+</div>
+</body>
+</html>

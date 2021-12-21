@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Esame React</title>
+    <link rel="StyleSheet" href="styles/style.css" type="text/css" media="all" />
+    <script src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"> </script>
+
+    <!--script src="./scripts/requestCalculator.js" type="text/javascript"></script-->
+    <script src="./scripts/utils.js" type="text/javascript"></script>
+
+</head>
+
+<body>
+    <!-- Placeholder -->
+    <div id="root"></div>
+
+    <!-- React components -->
+    <script src="App.js" type="text/babel"></script>
+    <script src="Article.js" type="text/babel"></script>
+
+    <!--  <script src="index.js" type="text/babel"></script-->
+
+    <script type="text/babel">
+        ReactDOM.render(
+            <React.StrictMode>
+                <App />
+            </React.StrictMode>,
+            document.getElementById('root')
+        );
+    </script>
+</body>
+
+</html>
