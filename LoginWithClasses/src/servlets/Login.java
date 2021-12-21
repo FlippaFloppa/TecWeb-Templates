@@ -29,10 +29,6 @@ public class Login extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
-        for(String g:d.getGroups().keySet()){
-            checkExpiredPasswords(g);
-        }
-
         String username = req.getParameter("username");
         String password = req.getParameter("password");
         String r = req.getParameter("req");
@@ -50,11 +46,12 @@ public class Login extends HttpServlet {
                 else{
 
                     if(username.compareTo("admin")==0){
-                        getServletContext().getRequestDispatcher("/admin.jsp").forward(req, resp);
                         System.out.println("Amministratore loggato!");
+                        getServletContext().getRequestDispatcher("/admin.jsp").forward(req, resp);
                     }
                     else{
-                        getServletContext().getRequestDispatcher("/applicazione.jsp").forward(req, resp);
+                        d.getUsers().get(username).setSession(req.getSession());
+                        getServletContext().getRequestDispatcher("/app.jsp").forward(req, resp);
                         System.out.println("Ricevuto login da Username: " + username + " Password: " + password);
                     }
                 }
@@ -64,10 +61,9 @@ public class Login extends HttpServlet {
 
         }
         if (r.equals("registration")) {
-            String group = req.getParameter("group");
-            System.out.println("Ricevuta registrazione da Username: " + username + " Password: " + password+" Gruppo: "+group);
+            System.out.println("Ricevuta registrazione da Username: " + username + " Password: " + password);
 
-            if (registration(username, password, group)) {
+            if (registration(username, password)) {
                 getServletContext().getRequestDispatcher("/login.jsp").forward(req, resp);
             } else {
                 getServletContext().getRequestDispatcher("/errors/loginFailure.jsp?err=registration").forward(req, resp);
@@ -81,36 +77,15 @@ public class Login extends HttpServlet {
 
     }
 
-    private boolean registration(String username, String password, String group) {
+    private boolean registration(String username, String password) {
         //controllo che il gruppo sia tra quelli disponibili
-        if (d.getGroups().containsKey(group) && !d.getUsers().containsKey(username)) {
-            d.getUsers().put(username, new Utente(username,password,group));
-            d.getGroups().get(group).add(d.getUsers().get(username));
-            System.out.println("Registrato utente: " + username + ", gruppo: " + group);
+        if (!d.getUsers().containsKey(username)) {
+            d.getUsers().put(username, new Utente(username,password));
+            System.out.println("Registrato utente: " + username);
             return true;
         }
         return false;
     }
 
 
-    private void checkExpiredPasswords(String group){
-
-        int expCounter=0;
-
-        for(Utente u: d.getGroups().get(group)){
-            u.checkPasswordAge();
-            if(u.isExpired()){
-                u.resetPassword();
-                expCounter++;
-            }
-        }
-
-        if(expCounter>2)resetAll(group);
-    }
-
-    private void resetAll(String group){
-        for(Utente u: d.getGroups().get(group)){
-            u.resetPassword();
-        }
-    }
 }
