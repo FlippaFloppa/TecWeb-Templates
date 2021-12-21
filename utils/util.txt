@@ -87,6 +87,10 @@ function tictac(){
     window.location.replace("http://localhost:8080/08_TecWeb/");
 }
 
+//redirect simulando un click
+window.location.href = "http://localhost:8080/08_TecWeb/";
+
+
 WEB.XML
 
 //Settare parametro di init e chiamarlo nella servlet
