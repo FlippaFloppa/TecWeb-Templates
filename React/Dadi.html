@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Esempio di gestione degli eventi con binding del this dell'handler al this del componente</title>
+    <script src="https://unpkg.com/react@15/dist/react.js"></script>
+    <script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.js"></script>
+
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+
+        class LancioDadi extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = { numero1: 0, numero2: 0, listalanci:[], fuorilista:[], res:"",counter: 0 };
+            }
+
+            genera(){
+                var n1=Math.floor(Math.random() * 6)+1; 
+                var n2=Math.floor(Math.random() * 6)+1; 
+                var sum=n1+n2;
+                this.setState({numero1: n1});
+                this.setState({numero2: n2});
+                if(sum >= 3 && sum <= 10){
+                this.setState({ listalanci: this.state.listalanci.concat(n1) });
+                this.setState({ counter: this.state.counter+1 });
+                this.setState({ res: this.state.res+=" Dado: "+this.state.counter+" valore:"+n1 });
+                this.setState({ listalanci: this.state.listalanci.concat(n2) });
+                this.setState({ counter: this.state.counter+1 });
+                this.setState({ res: this.state.res+=" Dado: "+this.state.counter+" valore:"+n2 });
+                console.log(this.state.res);
+
+                }else{
+                this.setState({ fuorilista: this.state.fuorilista.concat(n1) });
+                this.setState({ fuorilista: this.state.fuorilista.concat(n2) });
+                }
+
+            }
+            render(){
+                return (
+                    <div>
+                    <h2>Genera numeri: {this.state.value}</h2>
+                    <button  onClick={() => this.genera()}>Genera</button>
+                    <br/>
+                    <textarea value={this.state.numero1} disabled="yes" name="campo1" id="campo1" cols="10" rows="2"/>
+                    <br/>
+                    <textarea value={this.state.numero2} disabled="yes" name="campo2" id="campo2" cols="10" rows="2"/>
+                    <VisualizzaInLista res={this.state.res}/>
+                    <br/>
+                    {this.state.fuorilista}
+                    <VisualizzaStatistiche listalanci={this.state.listalanci} fuorilista={this.state.fuorilista} />
+                    </div>
+                )
+            }
+        }
+        class VisualizzaInLista extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = { res:""};
+            }
+
+            render() {
+                return (
+                    <div>
+                        <h2>Lanci in lista:</h2>
+                        <br/>
+                        {this.props.res}
+                        </div>
+                );
+            }
+        }
+        class VisualizzaStatistiche extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = { best:0, worst:0, media:0 };
+            }
+            calcola(){
+                var listA=this.props.listalanci;
+                var listB=this.props.fuorilista;
+                console.log(listA);
+                console.log(listB);
+                var c=0;
+                var tmp;
+                var listTmp1=[];
+                var listTmp2=[];
+                var m=0;
+
+                //in lista
+                for(var i=0;i<listA.length/2;i++){
+                    if(i%2==0){
+                        listTmp1[i]=listA[i]+listA[i*2];
+                    }else{
+                        listTmp1[i]=listA[i]+listA[i*2];
+                    }
+                }
+                
+               //fuori lista
+                for(var i=0;i<listB.length/2;i++){
+                    if(i%2==0){
+                        listTmp2[i]=listB[i]+listB[i*2];
+                        m+=listTmp2[i];
+                    }else{
+                        listTmp2[i]=listB[i]+listB[i*2];
+                        m+=listTmp2[i];
+                    }
+                }
+                var res=(m/listTmp2.length);
+
+                this.setState({ best: Math.max(listTmp1)});
+                this.setState({ worst: Math.min(listTmp1)});
+                this.setState({ media: res});
+
+            }
+            clear(){
+                console.log("Clear");
+                this.setState({ best: 0});
+                this.setState({ worst: 0});
+                this.setState({ media: 0});
+            }
+            render() {
+                return (
+                    <div>
+                        <h2>Statistiche:</h2>
+                        <button  onClick={() => this.calcola()}>Calcola Statistiche</button>
+                        <button  onClick={() => this.clear()}>Clear All</button>
+                        <br/>
+                        <textarea value={this.state.best} disabled="yes" name="first" id="first" cols="10" rows="2"/>
+                        <textarea value={this.state.worst} disabled="yes" name="second" id="second" cols="10" rows="2"/>
+                        <textarea value={this.state.media} disabled="yes" name="third" id="third" cols="10" rows="2"/>
+                        <br/>
+                        </div>
+                );
+            }
+        }
+        ReactDOM.render(
+            <LancioDadi />,
+            document.getElementById('root')
+        );
+
+    </script>
+</body>
+
+</html>
