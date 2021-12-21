@@ -86,3 +86,18 @@ function tictac(){
     alert('Sessione terminata!');
     window.location.replace("http://localhost:8080/08_TecWeb/");
 }
+
+WEB.XML
+
+//Settare parametro di init e chiamarlo nella servlet
+<servlet>
+     <display-name>HelloWorldServlet</display-name>
+     <servlet-name>HelloWorldServlet</servlet-name>
+     <init-param>
+         <param-name>Greetings</param-name>
+         <param-value>Hello</param-value>
+     </init-param>
+</servlet>
+
+//Nella servlet si chiama
+out.println(getInitParameter("Greetings"));
