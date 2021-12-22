@@ -35,7 +35,7 @@ public class Login extends HttpServlet{
         ad.setPassword("ad");
         utenti.add(ad);*/
         
-        //inserisco gli utenti gi‡ presenti
+        //inserisco gli utenti gi√† presenti
         Utente a=new Utente();
         a.setUsername("a");
         a.setPassword("a");
@@ -85,33 +85,33 @@ public class Login extends HttpServlet{
 			req.getSession().setAttribute("admin", true);
 			resp.sendRedirect(req.getContextPath()+"/admin.jsp");
 		}
-		
-		
-		ServletContext application = getServletContext();
-		if (application.getAttribute("utenti")==null) {
-			System.out.println("Errore utenti non presenti");
+		else{
+
+			ServletContext application = getServletContext();
+			if (application.getAttribute("utenti")==null) {
+				System.out.println("Errore utenti non presenti");
+			}
+
+			List<Utente> utenti = (List<Utente>)application.getAttribute("utenti");
+
+
+			for (int i=0; i<utenti.size(); i++) {
+				System.out.println("Utente: "+utenti.get(i).getUsername()+" "+utenti.get(i).getPassword());
+				if (utenti.get(i).getUsername().equals(u) && utenti.get(i).getPassword().equals(p) /*&& Login.gruppi.contains(g)*/) {
+
+					//setto il gruppo
+					//utenti.get(i).setGroup(g);
+
+					//setto la sessione
+					utenti.get(i).setSession(req.getSession());
+					req.getSession().setAttribute("username", utenti.get(i).getUsername());
+					req.getSession().setAttribute("logged", true);
+
+					application.setAttribute("utenti", utenti);
+				}			
+			}
+			resp.sendRedirect(req.getContextPath()+"/index.jsp");
 		}
-				
-		List<Utente> utenti = (List<Utente>)application.getAttribute("utenti");
-		
-		
-		for (int i=0; i<utenti.size(); i++) {
-			System.out.println("Utente: "+utenti.get(i).getUsername()+" "+utenti.get(i).getPassword());
-			if (utenti.get(i).getUsername().equals(u) && utenti.get(i).getPassword().equals(p) /*&& Login.gruppi.contains(g)*/) {
-				
-				//setto il gruppo
-				//utenti.get(i).setGroup(g);
-				
-				//setto la sessione
-				utenti.get(i).setSession(req.getSession());
-				req.getSession().setAttribute("username", utenti.get(i).getUsername());
-				req.getSession().setAttribute("logged", true);
-				
-				application.setAttribute("utenti", utenti);
-			}			
-		}
-		resp.sendRedirect(req.getContextPath()+"/index.jsp");
-		
 	}
 
 	
