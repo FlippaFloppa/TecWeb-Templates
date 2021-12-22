@@ -21,16 +21,7 @@ menù a tendina
 </select>
 </form> 
 
-Menù a tendina con javascript
-<select>
-        <%
-        for(int i=0;i<roba.lenght;i++){
-            %>
-        <option value="<%=roba[i].getId%>"><%=roba[i].boh%></option>
-        <%
-        }
-        %>
-    </select>
+
 
 
 
@@ -74,6 +65,18 @@ JSP
 String u=request.getParameter("username");
 
 List<HttpSession> l=(List<HttpSession>)(getServletConfig().getServletContext().getAttribute("sessioni"));
+
+Menù a tendina in jsp 
+<select>
+        <%
+        for(int i=0;i<roba.lenght;i++){
+            %>
+        <option value="<%=roba[i].getId%>"><%=roba[i].boh%></option>
+        <%
+        }
+        %>
+</select>
+
 
 //Leggere da file
 private static final String path="/path/to/file";
