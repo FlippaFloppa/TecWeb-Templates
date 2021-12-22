@@ -62,6 +62,8 @@ JSP
 <%@ page import="java.util.*"%>
 <%@ page import="javax.servlet.*"%>
 
+<a href=<%=request.getContextPath()%>/login.jsp>vai a ...</a>
+
 String u=request.getParameter("username");
 
 List<HttpSession> l=(List<HttpSession>)(getServletConfig().getServletContext().getAttribute("sessioni"));
