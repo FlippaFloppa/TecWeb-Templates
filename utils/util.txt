@@ -77,6 +77,15 @@ Menù a tendina in jsp
         %>
 </select>
 
+if in jsp 
+<%
+  if(true){
+    %>
+  <button id="button" onCLick="func()">Premi</button>
+  <%
+  }
+%>
+
 
 //Leggere da file
 private static final String path="/path/to/file";
