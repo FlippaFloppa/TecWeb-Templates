@@ -1,6 +1,6 @@
 package bean;
 
-import java.text.SimpleDateFormat;
+import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
@@ -13,6 +13,7 @@ public class Utente {
     private Date passwordSet;
     private boolean expired;
     private int wrongPassword;
+    private HttpSession session;
 
     public Utente(String usr,String passw,String group){
         if(group==null)
@@ -71,5 +72,12 @@ public class Utente {
     public long daysUntilExpired(){
         long diffMillis= Math.abs(new Date(System.currentTimeMillis()).getTime()-this.passwordSet.getTime());
         return 60-TimeUnit.DAYS.convert(diffMillis, TimeUnit.MILLISECONDS);
+    }
+    public HttpSession getSession() {
+        return session;
+    }
+
+    public void setSession(HttpSession session) {
+        this.session = session;
     }
 }

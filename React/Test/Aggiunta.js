@@ -5,7 +5,7 @@ class Aggiunta extends React.Component {
     render(){
         return (
             <div>
-            <h3>Inserisci un nuovo elemento nella rubrica:</h3>
+            <h3>Inserisci un nuovo elemento:</h3>
             <input type="text" id="nome" name="nome"/>
             <br/>
             <br/>
