@@ -21,6 +21,16 @@ menù a tendina
 </select>
 </form> 
 
+Menù a tendina con javascript
+<select>
+        <%
+        for(int i=0;i<roba.lenght;i++){
+            %>
+        <option value="<%=roba[i].getId%>"><%=roba[i].boh%></option>
+        <%
+        }
+        %>
+    </select>
 
 
 
