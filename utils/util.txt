@@ -124,6 +124,25 @@ request.data=data;
 String oggetto = req.getParameter("parametro");
 Prenotazione p = g.fromJson(oggetto, Prenotazione.class);
 
+//Check se stringa contiene numeri
+function hasNumber(myString) {
+    return /\d/.test(myString);
+}
+if (hasNumber(parola)) {
+alert("Non può contenere caratteri non alfabetici!");
+return;
+}
+
+//Check solo lettere minuscole
+if (value.match(/^[a-z]*$/)) {
+    // matches
+} else {
+    // doesn't match
+}
+
+//Check solo lettere e numeri
+if (/^[A-Za-z0-9]+$/.test(string)) 
+
 //send con post XHR
 theXhr.open("post", uri, true);
 theXhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
