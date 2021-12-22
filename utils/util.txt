@@ -24,6 +24,7 @@ menù a tendina
 
 
 
+
 SERVLET
 import com.google.gson.Gson;
 
@@ -65,6 +66,38 @@ String u=request.getParameter("username");
 
 List<HttpSession> l=(List<HttpSession>)(getServletConfig().getServletContext().getAttribute("sessioni"));
 
+Menù a tendina in jsp 
+<select>
+        <%
+        for(int i=0;i<roba.lenght;i++){
+            %>
+        <option value="<%=roba[i].getId%>"><%=roba[i].boh%></option>
+        <%
+        }
+        %>
+</select>
+
+if in jsp 
+<%
+  if(true){
+    %>
+  <button id="button" onCLick="func()">Premi</button>
+  <%
+  }
+%>
+
+
+//Leggere da file
+private static final String path="/path/to/file";
+try {
+     buff = new BufferedReader(new FileReader(path));
+     while ((line = (buff.readLine())) != null) {
+     String splitter[]=line.split(" ");
+     Integer id=Integer.parseInt(splitter[0]);
+     }
+     } catch (IOException e) {
+            e.printStackTrace();
+     }
 
 
 JAVASCRIPT
@@ -103,7 +136,45 @@ function tictac(){
 //redirect simulando un click
 window.location.href = "http://localhost:8080/08_TecWeb/";
 
+//Formare un oggetto JSON
+var request=new Object();
 
+//Inserire il campo data dell' oggetto
+request.data=data;
+
+//Riprendere i valori su java
+String oggetto = req.getParameter("parametro");
+Prenotazione p = g.fromJson(oggetto, Prenotazione.class);
+
+//Check se stringa contiene numeri
+function hasNumber(myString) {
+    return /\d/.test(myString);
+}
+if (hasNumber(parola)) {
+alert("Non può contenere caratteri non alfabetici!");
+return;
+}
+
+//Check solo lettere minuscole
+if (value.match(/^[a-z]*$/)) {
+    // matches
+} else {
+    // doesn't match
+}
+
+//Check solo lettere e numeri
+if (/^[A-Za-z0-9]+$/.test(string)) 
+
+//send con post XHR
+theXhr.open("post", uri, true);
+theXhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+theXhr.setRequestHeader("connection", "close");
+theXhr.send("p1=json&p2="+JSON.stringify(request));
+
+//send con get XHR
+theXhr.open("get", uri, true);
+theXhr.setRequestHeader("connection", "close");
+theXhr.send(null);
 
 WEB.XML
 
