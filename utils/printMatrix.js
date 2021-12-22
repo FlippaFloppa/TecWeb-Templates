@@ -29,8 +29,11 @@ function calcola(){
             res=res+el.value+" ";
         }
     }
-
-    alert(res);
-    request("http://localhost:8080/TW_Esame_201223_2/calcola?matrix="+res, myGetElementById('res'));
+    if(ok){
+    //Richiesta
+    Ajax(...);
+	//request("http://localhost:8080/TW_Esame_201223_2/calcola?matrix="+res, myGetElementById('res'));
 	//in res salvo il risultato
+    }else alert(res);
+
 }
